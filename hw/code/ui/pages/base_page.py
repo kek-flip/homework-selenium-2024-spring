@@ -26,6 +26,9 @@ class BasePage(object):
     def find(self, locator, timeout=None):
         return self.wait(timeout).until(EC.visibility_of_element_located(locator))
     
+    def find_all(self, locator, timeout=None):
+        return self.wait(timeout).until(EC.visibility_of_all_elements_located(locator))
+    
     def click(self, locator, timeout=None):
         self.find(locator, timeout=timeout)
         elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
