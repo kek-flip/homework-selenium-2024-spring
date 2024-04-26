@@ -39,4 +39,4 @@ def driver(config):
 
 @pytest.fixture(scope='session')
 def credentials():
-    return (environ.get("VK_LOGIN", "Test"), environ.get("VK_PASSWORD", "Test"))
+    return (environ.get("LOGIN", "Test"), environ.get("PASSWORD", "Test"))
