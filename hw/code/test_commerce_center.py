@@ -1,3 +1,4 @@
-from .base import BaseCase
+from base import BaseCase
 class TestCommerceCenter(BaseCase):
-    pass
+    def test_test(self):
+        assert 1 == 1
