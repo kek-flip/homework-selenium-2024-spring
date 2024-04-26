@@ -15,4 +15,3 @@ class BaseCase:
         if self.authorize:
             credentials = request.getfixturevalue('credentials')
             self.overview_page = self.main_page.login(credentials)
-
