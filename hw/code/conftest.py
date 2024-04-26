@@ -1,4 +1,5 @@
 from ui.fixtures import *
+from dotenv import load_dotenv
 
 
 def pytest_addoption(parser):
@@ -11,6 +12,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope='session')
 def config(request):
+    load_dotenv()
     browser = request.config.getoption('--browser')
     url = request.config.getoption('--url')
     debug_log = request.config.getoption('--debug_log')
