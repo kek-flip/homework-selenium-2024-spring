@@ -11,7 +11,7 @@ class BaseCase:
         self.driver = driver
         self.config = config
 
-        self.main_page = MainPage(driver)
         if self.authorize:
             credentials = request.getfixturevalue('credentials')
-            self.overview_page = self.main_page.login(credentials)
+            driver.get(MainPage.url)
+            MainPage(driver).login(credentials)

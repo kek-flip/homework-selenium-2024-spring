@@ -7,6 +7,10 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
+from ui.pages.overview_page import OverviewPage
+from ui.pages.commerce_center_page import CommerceCenterPage
+from ui.pages.main_page import MainPage
+
 @pytest.fixture()
 def driver(config):
     browser = config['browser']
@@ -40,3 +44,20 @@ def driver(config):
 @pytest.fixture(scope='session')
 def credentials():
     return (environ.get("LOGIN", "Test"), environ.get("PASSWORD", "Test"))
+
+# -------Pages--------
+
+@pytest.fixture()
+def main_page(driver):
+    driver.get(MainPage.url)
+    return MainPage(driver)
+
+@pytest.fixture()
+def overview_page(driver):
+    driver.get(OverviewPage.url)
+    return OverviewPage(driver)
+
+@pytest.fixture()
+def commerce_center_page(driver):
+    driver.get(CommerceCenterPage.url)
+    return CommerceCenterPage(driver)
