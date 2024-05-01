@@ -14,7 +14,7 @@ class TestCommerceCenter(BaseCase):
         commerce_center_page.wait_for_feed_load()
         commerce_center_page.open_goods_tab()
 
-        with open(self.config['feed_path'], newline='') as csvfile:
+        with open(self.config['feed_path'], newline='', encoding='utf-8') as csvfile:
            goods = sorted(commerce_center_page.get_catalog_goods(), key=lambda good: good['id'])
            reader = csv.DictReader(csvfile)
            for row, good in zip(reader, goods):

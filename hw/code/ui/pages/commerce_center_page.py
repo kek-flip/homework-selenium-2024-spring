@@ -1,5 +1,6 @@
 from .base_page import BasePage
 from ui.locators.commerce_center_locators import CommerceCenterPageLocators
+from selenium.webdriver.support import expected_conditions as EC
 
 class CommerceCenterPage(BasePage):
     url = 'https://ads.vk.com/hq/ecomm/catalogs'
@@ -30,12 +31,12 @@ class CommerceCenterPage(BasePage):
         self.click(self.locators.GOODS_TAB_LOCATOR)
 
     def get_catalog_goods(self):
-        goods_names = map(lambda good_name_element: good_name_element.text, self.find_all(self.locators.GOODS_NAMES_LOCATOR))
+        goods_titles = map(lambda good_title_element: good_title_element.text, self.find_all(self.locators.GOODS_TITLES_LOCATOR))
         goods_IDs = map(lambda good_id_element: good_id_element.text[3:], self.find_all(self.locators.GOODS_ID_LOCATOR))
 
         goods = []
-        for id, name in zip(goods_IDs, goods_names):
-            goods.append({'id': id, 'name': name})
+        for id, title in zip(goods_IDs, goods_titles):
+            goods.append({'id': id, 'title': title})
         
         return goods
 
@@ -43,4 +44,10 @@ class CommerceCenterPage(BasePage):
         self.click(self.locators.left_menu.COMMERCE_CENTER_BTN_LOCATOR)
 
     def clear_catalogs(self):
-        pass
+        menu_btns = self.wait(5).until(EC.presence_of_all_elements_located(self.locators.CATALOG_MENU_BTNS_LOCATOR))
+        for menu_btn in menu_btns:
+            menu_btn.click()
+            delete_btn = self.find_all(self.locators.MENU_ITEM_BTNS_LOCATOR)[1]
+            delete_btn.click()
+            self.click(self.locators.REMOVE_CATALOG_MODAL_BTN_LOCATOR)
+            self.find(self.locators.SUCCESS_CATALOG_REMOVE_NOTIFY_LOCATOR, 100)
