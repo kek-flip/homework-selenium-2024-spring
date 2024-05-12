@@ -10,6 +10,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 from ui.pages.overview_page import OverviewPage
 from ui.pages.commerce_center_page import CommerceCenterPage
 from ui.pages.main_page import MainPage
+from ui.pages.cabinet import CabinetPage
 
 @pytest.fixture()
 def driver(config):
@@ -61,3 +62,8 @@ def overview_page(driver):
 def commerce_center_page(driver):
     driver.get(CommerceCenterPage.url)
     return CommerceCenterPage(driver)
+
+@pytest.fixture()
+def cabinet_page(driver):
+    driver.get(CabinetPage.url)
+    return CabinetPage(driver)

@@ -2,9 +2,35 @@ import time
 
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
+
 
 class PageNotOpenedExeption(Exception):
     pass
+
+
+class element_in_viewport(object):
+    def __init__(self, locator: tuple[str, str]):
+        self.locator = locator
+
+    def __call__(self, driver: RemoteWebDriver):
+        script = """
+                    var elem = arguments[0],
+                    box = elem.getBoundingClientRect(),
+                    cx = box.left + box.width / 2,
+                    cy = box.top + box.height / 2,
+                    e = document.elementFromPoint(cx, cy);
+                    for (; e; e = e.parentElement) {
+                    if (e === elem)
+                      return true;
+                    }
+                    return false;
+                """
+
+        elem = driver.find_element(*self.locator)
+        return driver.execute_script(script, elem)
+
 
 class BasePage(object):
     def __init__(self, driver):
@@ -36,3 +62,36 @@ class BasePage(object):
 
     def fill(self, locator, keys):
         self.find(locator).send_keys(keys)
+
+    def scroll_click(self, locator, timeout=5) -> WebElement:
+        elem = self.find(locator, timeout=timeout)
+
+        self.wait(timeout).until(EC.visibility_of_element_located(locator))
+        elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
+
+        elem.location_once_scrolled_into_view
+
+        self.wait(timeout).until(element_in_viewport(locator))
+
+        elem.click()
+
+        return elem
+
+    def is_visible(self, locator, timeout: float | None = None):
+        try:
+            elem = self.find(locator, timeout)
+            elem.location_once_scrolled_into_view
+            return True
+        except:
+            return False
+
+    def is_not_visible(self, locator, timeout: float | None = None):
+        try:
+            self.wait(timeout).until(EC.invisibility_of_element(locator))
+            return True
+        except:
+            return False
+
+    def switch_to_new_tab(self):
+        assert len(self.driver.window_handles) > 1
+        self.driver.switch_to.window(self.driver.window_handles[1])

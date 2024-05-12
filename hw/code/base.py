@@ -2,6 +2,11 @@ import pytest
 from _pytest.fixtures import FixtureRequest
 
 from ui.pages.main_page import MainPage
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
+from ui.pages.base_page import PageNotOpenedExeption
+
 
 class BaseCase:
     authorize = True
@@ -15,3 +20,33 @@ class BaseCase:
             credentials = request.getfixturevalue('credentials')
             driver.get(MainPage.url)
             MainPage(driver).login(credentials)
+
+    def is_url_open(self, url):
+        timeout = 5
+
+        try:
+            WebDriverWait(self.driver, timeout).until(EC.url_matches(url))
+            return True
+        except:
+            raise PageNotOpenedExeption(
+                f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
+
+
+class UnauthorizedCase:
+    authorize = False
+
+    @pytest.fixture(scope='function', autouse=True)
+    def setup(self, driver, config, request: FixtureRequest):
+        self.driver = driver
+        self.config = config
+
+    def is_url_open(self, url):
+        timeout = 5
+
+        try:
+            WebDriverWait(self.driver, timeout).until(EC.url_matches(url))
+            return True
+        except:
+            raise PageNotOpenedExeption(
+                f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
+
