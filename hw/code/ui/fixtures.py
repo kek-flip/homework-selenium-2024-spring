@@ -11,6 +11,7 @@ from ui.pages.overview_page import OverviewPage
 from ui.pages.commerce_center_page import CommerceCenterPage
 from ui.pages.main_page import MainPage
 from ui.pages.cabinet import CabinetPage
+from ui.pages.registration_page import RegistrationPage
 
 @pytest.fixture()
 def driver(config):
@@ -46,6 +47,10 @@ def driver(config):
 def credentials():
     return (environ.get("LOGIN", "Test"), environ.get("PASSWORD", "Test"))
 
+@pytest.fixture(scope='session')
+def no_cabinet_credentials():
+    return (environ.get("NO_CABINET_LOGIN", "Test"), environ.get("NO_CABINET_PASSWORD", "Test"))
+
 # -------Pages--------
 
 @pytest.fixture()
@@ -67,3 +72,8 @@ def commerce_center_page(driver):
 def cabinet_page(driver):
     driver.get(CabinetPage.url)
     return CabinetPage(driver)
+
+@pytest.fixture()
+def registration_page(driver):
+    driver.get(RegistrationPage.url)
+    return RegistrationPage(driver)

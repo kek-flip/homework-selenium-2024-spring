@@ -1,5 +1,6 @@
 from .base_page import BasePage
 from .overview_page import OverviewPage
+from .registration_page import RegistrationPage
 from  ui.locators.main_locators import MainPageLocators
 from selenium.common.exceptions import TimeoutException
 
@@ -19,6 +20,18 @@ class MainPage(BasePage):
         self.click(self.locators.SUBMIT_BTN_LOCATOR)
 
         return OverviewPage(self.driver)
+
+    def login_no_cabinet(self, credentials):
+        self.click(self.locators.LOGIN_BTN_LOCATOR)
+        self.click(self.locators.MAIL_RU_BTN_LOCATOR)
+
+        login, password = credentials
+        self.fill(self.locators.USERNAME_INPUT_LOCATOR, login)
+        self.click(self.locators.NEXT_BTN_LOCATOR)
+        self.fill(self.locators.PASSWORD_INPUT_LOCATOR, password)
+        self.click(self.locators.SUBMIT_BTN_LOCATOR)
+
+        return RegistrationPage(self.driver)
 
     def try_to_register(self):
         self.click(self.locators.NOT_ACTIVE_BULLET_LOCATOR)
@@ -41,17 +54,3 @@ class MainPage(BasePage):
 
     def click_news_banner(self):
         self.scroll_click(self.locators.NEWS_BANNER_LOCATOR)
-
-
-
-
-# class MainPageUnauthorized(BasePage):
-#     url = 'https://ads.vk.com/'
-#     locators = MainPageLocators()
-#     authorize = False
-#
-#     def try_to_register(self):
-#         self.click(self.locators.REGISTER_BTN_LOCATOR)
-#
-#         return OverviewPage(self.driver)
-

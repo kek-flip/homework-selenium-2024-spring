@@ -50,3 +50,27 @@ class UnauthorizedCase:
             raise PageNotOpenedExeption(
                 f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
 
+
+class NoCabinetCase:
+    authorize = True
+
+    @pytest.fixture(scope='function', autouse=True)
+    def setup(self, driver, config, request: FixtureRequest):
+        self.driver = driver
+        self.config = config
+
+        if self.authorize:
+            no_cabinet_credentials = request.getfixturevalue('no_cabinet_credentials')
+            driver.get(MainPage.url)
+            MainPage(driver).login_no_cabinet(no_cabinet_credentials)
+
+    def is_url_open(self, url):
+        timeout = 5
+
+        try:
+            WebDriverWait(self.driver, timeout).until(EC.url_matches(url))
+            return True
+        except:
+            raise PageNotOpenedExeption(
+                f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
+

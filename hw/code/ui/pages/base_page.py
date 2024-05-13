@@ -4,6 +4,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
+from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
+from selenium.webdriver.common.keys import Keys
 
 
 class PageNotOpenedExeption(Exception):
@@ -54,6 +56,15 @@ class BasePage(object):
     
     def find_all(self, locator, timeout=None):
         return self.wait(timeout).until(EC.visibility_of_all_elements_located(locator))
+
+    def find_from(self, parent, locator, timeout: float | None = None) -> WebElement:
+        def wait_cond(_):
+            elem = parent.find_element(*locator)
+            if elem.is_displayed():
+                return elem
+            return False
+
+        return self.wait(timeout).until(wait_cond)
     
     def click(self, locator, timeout=None):
         self.find(locator, timeout=timeout)
@@ -95,3 +106,28 @@ class BasePage(object):
     def switch_to_new_tab(self):
         assert len(self.driver.window_handles) > 1
         self.driver.switch_to.window(self.driver.window_handles[1])
+
+    def clear(self, locator, timeout: float | None = None) -> WebElement:
+        elem = self.find(locator, timeout)
+        elem.clear()
+
+        if elem.get_attribute('value') != '':
+            size = len(elem.get_attribute('value'))
+            elem.send_keys(size * Keys.BACKSPACE)
+
+        return elem
+
+    def fill_in(self, locator, query: str, timeout: float | None = None) -> WebElement:
+        elem = self.clear(locator, timeout)
+        elem.send_keys(query)
+        return elem
+
+    def form_error(self, locator, error) -> WebElement:
+        try:
+            error_container = self.find(self.locators.ERROR)
+            self.find_from(error_container, locator)
+            error = self.find_from(
+                error_container, self.locators.BY_TEXT(error))
+            return error
+        except TimeoutException:
+            return None
