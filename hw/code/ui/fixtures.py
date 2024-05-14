@@ -13,6 +13,7 @@ from ui.pages.main_page import MainPage
 from ui.pages.cabinet import CabinetPage
 from ui.pages.registration_page import RegistrationPage
 from ui.pages.news_page import NewsPage
+from ui.pages.forum_page import ForumPage
 
 @pytest.fixture()
 def driver(config):
@@ -83,3 +84,8 @@ def registration_page(driver):
 def news_page(driver):
     driver.get(NewsPage.url)
     return NewsPage(driver)
+
+@pytest.fixture()
+def forum_page(driver):
+    driver.get(ForumPage.url)
+    return ForumPage(driver)

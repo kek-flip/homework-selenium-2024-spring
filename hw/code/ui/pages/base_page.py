@@ -131,3 +131,7 @@ class BasePage(object):
             return error
         except TimeoutException:
             return None
+
+    def wait_for_count_of_elements(self, locator, count, timeout: float | None = None):
+        self.wait(timeout).until(lambda _: len(
+            self.find_all(locator)) == count)

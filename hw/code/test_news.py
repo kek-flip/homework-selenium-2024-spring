@@ -2,7 +2,7 @@ from base import UnauthorizedCase
 from ui.pages.news_page import NewsPage
 
 
-class TestMainPage(UnauthorizedCase):
+class TestNewsPage(UnauthorizedCase):
 
     def test_go_to_detailed(self,  news_page: NewsPage):
         news_page.click_detailed()
