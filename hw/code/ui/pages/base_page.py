@@ -7,7 +7,6 @@ from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
 from selenium.webdriver.common.keys import Keys
 
-
 class PageNotOpenedExeption(Exception):
     pass
 
