@@ -38,11 +38,16 @@ class CommerceCenterPageLocators:
 
     GOODS_TAB_LOCATOR = (By.CSS_SELECTOR, '[data-testid=catalog-tabs-goods]')
 
+    GOODS_TAB_SETTINGS_LOCATOR = (By.CSS_SELECTOR, '.TableSettings_settingsButton__uz8xK')
+    GOODS_TAB_SUBMIT_BTN_LOCATOR = (By.CSS_SELECTOR, '[type=submit]')
+
     GOODS_TITLES_LOCATOR = (By.CSS_SELECTOR, '.NameCell_itemNameBlock__m3cNF > h5')
     GOODS_ID_LOCATOR = (By.CSS_SELECTOR, '.NameCell_itemNameBlock__m3cNF > span')
-    GOOD_MODEL_LOCATOR = (By.CSS_SELECTOR, '.BaseTable__row[role=row] > div:nth-child(6) > span')
+    GOODS_MODEL_LOCATOR = (By.CSS_SELECTOR, '.BaseTable__row[role=row] > div:nth-child(6) > span')
 
     GOOD_NAME_HEADER_LOCATOR = (By.CSS_SELECTOR, '[role=gridcell][data-key=name]')
+    GOOD_COLUMN_REMOVE_BTN_LOCATOR = (By.CSS_SELECTOR, '[aria-label="Удалить Наличие"]')
+    GOOD_COLUMN_NAMES_BTN_LOCATOR = (By.CSS_SELECTOR, '[role=presentation] > span')
 
     def get_locator_by_source(self, source):
         if source == FeedSources.URL:

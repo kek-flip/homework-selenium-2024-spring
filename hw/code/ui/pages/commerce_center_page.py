@@ -43,7 +43,7 @@ class CommerceCenterPage(BasePage):
     def get_catalog_goods(self):
         goods_titles = map(lambda good_title_element: good_title_element.text, self.find_all(self.locators.GOODS_TITLES_LOCATOR))
         goods_IDs = map(lambda good_id_element: good_id_element.text[3:], self.find_all(self.locators.GOODS_ID_LOCATOR))
-        goods_models = map(lambda good_model_element: good_model_element.text, self.find_all(self.locators.GOOD_MODEL_LOCATOR))
+        goods_models = map(lambda good_model_element: good_model_element.text, self.find_all(self.locators.GOODS_MODEL_LOCATOR))
 
         goods = []
         for id, title, model in zip(goods_IDs, goods_titles, goods_models):
@@ -80,3 +80,15 @@ class CommerceCenterPage(BasePage):
 
     def sort_by_model(self):
         self.find_all(self.locators.HEADER_ROW_LOCATOR)[5].click()
+
+    def open_goods_tab_settings(self):
+        self.click(self.locators.GOODS_TAB_SETTINGS_LOCATOR)
+
+    def get_first_column_name(self):
+        self.find_all(self.locators.GOOD_COLUMN_NAMES_BTN_LOCATOR)[1].text
+
+    def remove_first_column(self):
+        self.click(self.locators.GOOD_COLUMN_REMOVE_BTN_LOCATOR)
+
+    def submit_goods_settings(self):
+        self.click(self.locators.GOODS_TAB_SUBMIT_BTN_LOCATOR)

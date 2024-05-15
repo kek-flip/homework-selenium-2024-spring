@@ -131,3 +131,23 @@ class TestCommerceCenter(BaseCase):
 
         commerce_center_page.open_commerce_center()
         commerce_center_page.clear_catalogs()
+
+    def test_remove_column(self, commerce_center_page: CommerceCenterPage):
+        commerce_center_page.close_help_modal()
+        commerce_center_page.open_catalog_creation()
+        commerce_center_page.select_feed_source(FeedSources.URL)
+        commerce_center_page.fill_feed_url(self.config['feed_url'])
+        commerce_center_page.submit_catalog_creation()
+        commerce_center_page.wait_for_feed_load()
+        commerce_center_page.open_goods_tab()
+        commerce_center_page.open_goods_tab_settings()
+
+        good_column = commerce_center_page.get_first_column_name()
+        commerce_center_page.remove_first_column()
+        commerce_center_page.submit_goods_settings()
+
+        commerce_center_page.driver.navigate().refresh()
+        assert good_column not in commerce_center_page.driver.page_source
+
+        commerce_center_page.open_commerce_center()
+        commerce_center_page.clear_catalogs()
