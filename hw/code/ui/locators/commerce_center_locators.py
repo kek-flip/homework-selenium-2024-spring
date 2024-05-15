@@ -15,6 +15,9 @@ class CommerceCenterPageLocators:
     CATALOG_NAME_INPUT_LOCATOR = (By.CSS_SELECTOR, '[data-testid=catalogName-input]')
     SUBMIT_CATALOG_SETTINGS_LOCATOR = (By.CSS_SELECTOR, '[data-testid=submit]')
 
+    CATALOG_SEARCH_INPUT_LOCATOR = (By.CSS_SELECTOR, '[type=search][data-testid=search]')
+    LENS_LOCATOR = (By.CSS_SELECTOR, 'svg.vkuiIcon[width="56"]')
+
     REMOVE_CATALOG_MODAL_BTN_LOCATOR = (By.CSS_SELECTOR, '[data-testid=button-remove]')
     CLOSE_HELP_MODAL_BTN_LOCATOR = (By.CSS_SELECTOR, '[role=button][aria-label=Закрыть]')
 

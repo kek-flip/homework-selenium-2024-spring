@@ -60,3 +60,7 @@ class CommerceCenterPage(BasePage):
         # self.hover(self.locators.REMOVE_CATALOG_MODAL_BTN_LOCATOR)
         # self.click(self.locators.REMOVE_CATALOG_MODAL_BTN_LOCATOR)
         self.find(self.locators.SUCCESS_CATALOG_REMOVE_NOTIFY_LOCATOR, 100)
+
+    def search_catalog(self, catalog_name):
+        self.find(self.locators.CATALOG_SEARCH_INPUT_LOCATOR).clear()
+        self.fill(self.locators.CATALOG_SEARCH_INPUT_LOCATOR, catalog_name)
