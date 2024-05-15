@@ -33,12 +33,14 @@ class CommerceCenterPageLocators:
 
     SUBMIT_CATALOG_BTN_LOCATOR = (By.CSS_SELECTOR, '[type=submit][title="Создать каталог"]')
 
-    HISTORY_ROW_LOCATOR = (By.CSS_SELECTOR, '.BaseTable__row[role=row]')
+    ROW_LOCATOR = (By.CSS_SELECTOR, '.BaseTable__row[role=row]')
 
     GOODS_TAB_LOCATOR = (By.CSS_SELECTOR, '[data-testid=catalog-tabs-goods]')
 
     GOODS_TITLES_LOCATOR = (By.CSS_SELECTOR, '.NameCell_itemNameBlock__m3cNF > h5')
     GOODS_ID_LOCATOR = (By.CSS_SELECTOR, '.NameCell_itemNameBlock__m3cNF > span')
+
+    GOOD_NAME_HEADER_LOCATOR = (By.CSS_SELECTOR, '[role=gridcell][data-key=name]')
 
     def get_locator_by_source(self, source):
         if source == FeedSources.URL:

@@ -35,7 +35,7 @@ class CommerceCenterPage(BasePage):
         self.click(self.locators.SUBMIT_CATALOG_BTN_LOCATOR)
 
     def wait_for_feed_load(self):
-        self.find(self.locators.HISTORY_ROW_LOCATOR, 600)
+        self.find(self.locators.ROW_LOCATOR, 600)
     
     def open_goods_tab(self):
         self.click(self.locators.GOODS_TAB_LOCATOR)
@@ -70,3 +70,9 @@ class CommerceCenterPage(BasePage):
 
     def wait_for_right_menu(self):
         self.fill(self.locators.RIGHT_MENU_LOCATOR)
+
+    def open_good_info(self):
+        self.click(self.locators.ROW_LOCATOR)
+
+    def sort_by_name(self):
+        self.click(self.locators.GOOD_NAME_HEADER_LOCATOR)
