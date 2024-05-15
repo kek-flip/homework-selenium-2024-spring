@@ -112,3 +112,22 @@ class TestCommerceCenter(BaseCase):
 
         commerce_center_page.open_commerce_center()
         commerce_center_page.clear_catalogs()
+
+    def test_sort_goods_by_model(self, commerce_center_page: CommerceCenterPage):
+        commerce_center_page.close_help_modal()
+        commerce_center_page.open_catalog_creation()
+        commerce_center_page.select_feed_source(FeedSources.URL)
+        commerce_center_page.fill_feed_url(self.config['feed_url'])
+        commerce_center_page.submit_catalog_creation()
+        commerce_center_page.wait_for_feed_load()
+        commerce_center_page.open_goods_tab()
+        commerce_center_page.sort_by_model()
+
+        goods = commerce_center_page.get_catalog_goods()        
+        sorted_goods = sorted(commerce_center_page.get_catalog_goods(), key=lambda good: good['model'])
+        for g, sg in zip(goods, sorted_goods):
+            assert g['id'] == sg['id']
+            assert g['title'] == sg['title']
+
+        commerce_center_page.open_commerce_center()
+        commerce_center_page.clear_catalogs()

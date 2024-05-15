@@ -43,10 +43,11 @@ class CommerceCenterPage(BasePage):
     def get_catalog_goods(self):
         goods_titles = map(lambda good_title_element: good_title_element.text, self.find_all(self.locators.GOODS_TITLES_LOCATOR))
         goods_IDs = map(lambda good_id_element: good_id_element.text[3:], self.find_all(self.locators.GOODS_ID_LOCATOR))
+        goods_models = map(lambda good_model_element: good_model_element.text, self.find_all(self.locators.GOOD_MODEL_LOCATOR))
 
         goods = []
-        for id, title in zip(goods_IDs, goods_titles):
-            goods.append({'id': id, 'title': title})
+        for id, title, model in zip(goods_IDs, goods_titles, goods_models):
+            goods.append({'id': id, 'title': title, 'model': model})
         
         return goods
 
@@ -76,3 +77,6 @@ class CommerceCenterPage(BasePage):
 
     def sort_by_name(self):
         self.click(self.locators.GOOD_NAME_HEADER_LOCATOR)
+
+    def sort_by_model(self):
+        self.find_all(self.locators.HEADER_ROW_LOCATOR)[5].click()
