@@ -37,6 +37,7 @@ class CommerceCenterPageLocators:
     HEADER_ROW_ITEMS_LOCATOR = (By.CSS_SELECTOR, '.BaseTable__header-row[role=row] > div')
 
     GOODS_TAB_LOCATOR = (By.CSS_SELECTOR, '[data-testid=catalog-tabs-goods]')
+    GROUP_TAB_LOCATOR = (By.CSS_SELECTOR, '[data-testid=catalog-tabs-groups]')
 
     GOODS_TAB_SETTINGS_LOCATOR = (By.CSS_SELECTOR, '.TableSettings_settingsButton__uz8xK')
     GOODS_TAB_SUBMIT_BTN_LOCATOR = (By.CSS_SELECTOR, '[type=submit]')
@@ -48,6 +49,13 @@ class CommerceCenterPageLocators:
     GOOD_NAME_HEADER_LOCATOR = (By.CSS_SELECTOR, '[role=gridcell][data-key=name]')
     GOOD_COLUMN_REMOVE_BTN_LOCATOR = (By.CSS_SELECTOR, '[aria-label="Удалить Наличие"]')
     GOOD_COLUMN_NAMES_BTN_LOCATOR = (By.CSS_SELECTOR, '[role=presentation] > span')
+
+    GROUP_CREATION_BTN_LOCATOR = (By.CSS_SELECTOR, '.CatalogGroups_controls__MC4-s > button')
+    GROUP_DROPDOWN_ITEMS_LOCATOR = (By.CSS_SELECTOR, '.CatalogGroups_createGroupDropdown__aPPLw')
+    GROUPS_LOCATOR = (By.CSS_SELECTOR, 'data-testid=catalog-groups-nav-item')
+
+    GROUP_GOOD_CHECK_LOCATOR = (By.XPATH, '//*[@id="0"]/div/div[2]/div/div[1]/div/div/div/div/div[2]/div[1]/div/div[1]/div[1]/div/div')
+    GROUP_GOOD_TITLE_LOCATOR = (By.CSS_SELECTOR, '.ModalRoot_componentWrapper__uzHTL .NameCell_itemNameBlock__m3cNF > h5')
 
     def get_locator_by_source(self, source):
         if source == FeedSources.URL:

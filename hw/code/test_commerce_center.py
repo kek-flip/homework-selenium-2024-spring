@@ -151,3 +151,24 @@ class TestCommerceCenter(BaseCase):
 
         commerce_center_page.open_commerce_center()
         commerce_center_page.clear_catalogs()
+
+    def test_create_group(self, commerce_center_page: CommerceCenterPage):
+        commerce_center_page.close_help_modal()
+        commerce_center_page.open_catalog_creation()
+        commerce_center_page.select_feed_source(FeedSources.URL)
+        commerce_center_page.fill_feed_url(self.config['feed_url'])
+        commerce_center_page.submit_catalog_creation()
+        commerce_center_page.wait_for_feed_load()
+        commerce_center_page.open_group_tab()
+        commerce_center_page.create_good_group()
+        commerce_center_page.open_create_group_from_scratch()
+
+        good_name = commerce_center_page.get_first_good_name()
+        commerce_center_page.check_first_good_in_group()
+        commerce_center_page.submit_goods_settings()
+        commerce_center_page.open_first_group()
+
+        assert good_name in commerce_center_page.driver.page_source
+        commerce_center_page.clear_groups()
+        commerce_center_page.open_commerce_center()
+        commerce_center_page.clear_catalogs()

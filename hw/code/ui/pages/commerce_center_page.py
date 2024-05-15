@@ -40,6 +40,9 @@ class CommerceCenterPage(BasePage):
     def open_goods_tab(self):
         self.click(self.locators.GOODS_TAB_LOCATOR)
 
+    def open_group_tab(self):
+        self.click(self.locators.GROUP_TAB_LOCATOR)
+
     def get_catalog_goods(self):
         goods_titles = map(lambda good_title_element: good_title_element.text, self.find_all(self.locators.GOODS_TITLES_LOCATOR))
         goods_IDs = map(lambda good_id_element: good_id_element.text[3:], self.find_all(self.locators.GOODS_ID_LOCATOR))
@@ -79,7 +82,7 @@ class CommerceCenterPage(BasePage):
         self.click(self.locators.GOOD_NAME_HEADER_LOCATOR)
 
     def sort_by_model(self):
-        self.find_all(self.locators.HEADER_ROW_LOCATOR)[5].click()
+        self.find_all(self.locators.HEADER_ROW_ITEMS_LOCATOR)[5].click()
 
     def open_goods_tab_settings(self):
         self.click(self.locators.GOODS_TAB_SETTINGS_LOCATOR)
@@ -92,3 +95,22 @@ class CommerceCenterPage(BasePage):
 
     def submit_goods_settings(self):
         self.click(self.locators.GOODS_TAB_SUBMIT_BTN_LOCATOR)
+
+    def create_good_group(self):
+        self.click(self.locators.GROUP_CREATION_BTN_LOCATOR)
+
+    def open_create_group_from_scratch(self):
+        self.find_all(self.locators.GROUP_DROPDOWN_ITEMS_LOCATOR)[1].click()
+
+    def check_first_good_in_group(self):
+        self.click(self.locators.GROUP_GOOD_CHECK_LOCATOR)
+
+    def get_first_good_name(self):
+        self.find_all(self.locators.GROUP_GOOD_TITLE_LOCATOR)[0].text
+
+    def open_first_group(self):
+        self.find_all(self.locators.GROUPS_LOCATOR)[1].click()
+
+    def clear_groups(self):
+        # TODO not to do
+        self.find(self.locators.SUCCESS_CATALOG_REMOVE_NOTIFY_LOCATOR, 100)
