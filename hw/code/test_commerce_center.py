@@ -5,6 +5,18 @@ from ui.locators.commerce_center_locators import FeedSources
 import csv
 
 class TestCommerceCenter(BaseCase):
+    def test_open_side_menu(self, commerce_center_page: CommerceCenterPage):
+        commerce_center_page.close_help_modal()
+        commerce_center_page.open_catalog_creation()
+        commerce_center_page.select_feed_source(FeedSources.URL)
+        commerce_center_page.fill_feed_url(self.config['feed_url'])
+        commerce_center_page.submit_catalog_creation()
+        commerce_center_page.wait_for_feed_load()
+        commerce_center_page.open_commerce_center()
+        commerce_center_page.open_catalog_settings()
+        commerce_center_page.wait_for_right_menu()
+        
+
     def test_create_catalog_from_link(self, commerce_center_page: CommerceCenterPage):
         commerce_center_page.close_help_modal()
         commerce_center_page.open_catalog_creation()
@@ -64,7 +76,7 @@ class TestCommerceCenter(BaseCase):
         commerce_center_page.open_catalog_settings()
         commerce_center_page.rename_catalog("new_catalog")
         commerce_center_page.search_catalog("not_existing_catalog")
-        commerce_center_page.find(commerce_center_page.locators.LENS_LOCATOR)
+        commerce_center_page.wait_for_lens()
 
         assert "Ничего не найдено" in commerce_center_page.driver.page_source
 

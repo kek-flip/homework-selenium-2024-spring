@@ -8,6 +8,9 @@ class FeedSources(Enum):
 
 class CommerceCenterPageLocators:
     left_menu = LeftMenuLocators()
+
+    RIGHT_MENU_LOCATOR = (By.CSS_SELECTOR, '.ModalRoot_componentWrapper__uzHTL')
+
     CREATE_CATALOG_BTN_LOCATOR = (By.CSS_SELECTOR, '[data-testid=create-catalog]')
 
     CATALOG_MENU_BTNS_LOCATOR = (By.XPATH, '//*[@id="catalogs"]/div/div/section/div/div/div[3]/div/div/div/div[2]/div[1]/div/div/div/div/div')

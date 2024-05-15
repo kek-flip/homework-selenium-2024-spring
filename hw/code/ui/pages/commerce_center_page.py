@@ -64,3 +64,9 @@ class CommerceCenterPage(BasePage):
     def search_catalog(self, catalog_name):
         self.find(self.locators.CATALOG_SEARCH_INPUT_LOCATOR).clear()
         self.fill(self.locators.CATALOG_SEARCH_INPUT_LOCATOR, catalog_name)
+
+    def wait_for_lens(self):
+        self.find(self.locators.LENS_LOCATOR)
+
+    def wait_for_right_menu(self):
+        self.fill(self.locators.RIGHT_MENU_LOCATOR)
