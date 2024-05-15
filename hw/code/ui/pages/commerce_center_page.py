@@ -9,6 +9,16 @@ class CommerceCenterPage(BasePage):
     def open_catalog_creation(self):
         self.click(self.locators.CREATE_CATALOG_BTN_LOCATOR)
 
+    def open_catalog_settings(self):
+        # self.click(self.locators.CATALOG_MENU_BTNS_LOCATOR)
+        # self.click(self.locators.MENU_ITEM_BTNS_LOCATOR)
+        self.find(self.locators.CATALOG_NAME_INPUT_LOCATOR, 100)
+        
+    def rename_catalog(self, new_name):
+        self.find(self.locators.CATALOG_NAME_INPUT_LOCATOR).clear()
+        self.fill(self.locators.CATALOG_NAME_INPUT_LOCATOR, new_name)
+        self.click(self.locators.SUBMIT_CATALOG_SETTINGS_LOCATOR)
+
     def close_help_modal(self):
         try:
             self.click(self.locators.CLOSE_HELP_MODAL_BTN_LOCATOR)
@@ -44,10 +54,9 @@ class CommerceCenterPage(BasePage):
         self.click(self.locators.left_menu.COMMERCE_CENTER_BTN_LOCATOR)
 
     def clear_catalogs(self):
-        menu_btns = self.wait(5).until(EC.presence_of_all_elements_located(self.locators.CATALOG_MENU_BTNS_LOCATOR))
-        for menu_btn in menu_btns:
-            menu_btn.click()
-            delete_btn = self.find_all(self.locators.MENU_ITEM_BTNS_LOCATOR)[1]
-            delete_btn.click()
-            self.click(self.locators.REMOVE_CATALOG_MODAL_BTN_LOCATOR)
-            self.find(self.locators.SUCCESS_CATALOG_REMOVE_NOTIFY_LOCATOR, 100)
+        # self.click(self.locators.CATALOG_MENU_BTNS_LOCATOR)
+        # delete_btn = self.find_all(self.locators.MENU_ITEM_BTNS_LOCATOR)[1]
+        # delete_btn.click()
+        # self.hover(self.locators.REMOVE_CATALOG_MODAL_BTN_LOCATOR)
+        # self.click(self.locators.REMOVE_CATALOG_MODAL_BTN_LOCATOR)
+        self.find(self.locators.SUCCESS_CATALOG_REMOVE_NOTIFY_LOCATOR, 100)
