@@ -49,6 +49,9 @@ class BasePage(object):
         if timeout is None:
             timeout = 5
         return WebDriverWait(self.driver, timeout=timeout)
+    
+    def unfocus(self):
+        self.driver.execute_script('document.activeElement.blur()')
 
     def find(self, locator, timeout=None):
         return self.wait(timeout).until(EC.visibility_of_element_located(locator))

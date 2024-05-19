@@ -14,6 +14,7 @@ from ui.pages.cabinet import CabinetPage
 from ui.pages.registration_page import RegistrationPage
 from ui.pages.news_page import NewsPage
 from ui.pages.forum_page import ForumPage
+from ui.pages.company_page import CompanyPage
 
 @pytest.fixture()
 def driver(config):
@@ -67,8 +68,8 @@ def overview_page(driver):
 
 @pytest.fixture()
 def commerce_center_page(driver):
-    driver.get(CommerceCenterPage.url)
-    return CommerceCenterPage(driver)
+    driver.get(CompanyPage.url)
+    return CompanyPage(driver)
 
 @pytest.fixture()
 def cabinet_page(driver):
@@ -89,3 +90,8 @@ def news_page(driver):
 def forum_page(driver):
     driver.get(ForumPage.url)
     return ForumPage(driver)
+
+@pytest.fixture()
+def company_page(driver):
+    driver.get(CompanyPage.url)
+    return CompanyPage(driver)
