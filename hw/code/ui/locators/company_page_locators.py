@@ -16,3 +16,8 @@ class CompanyPageLocators:
 
     NO_REGION_ERROR_LOCATOR = (By.XPATH, '//*[@id="react-collapsed-panel-1"]/fieldset/div/div/section')
     TARGET_LABEL_LOCATOR = (By.XPATH, '//*[@id="new_ad_create"]/div/div/div/div/div[2]/section/div/div/div/div/div/div[1]/div[1]')
+
+    INTERESTS_SECTION_LOCATOR = (By.CSS_SELECTOR, '[data-testid=section-interests]')
+    INTERESTS_SUBSECTION_LOCATOR = (By.CSS_SELECTOR, '#react-collapsed-toggle-69')
+    INTERESTS_DROPDOWN_BTN_LOCATOR = (By.CSS_SELECTOR, '[data-name=interests] > div')
+    INTERESTS_DROPDOWN_CONTENT_LOCATOR = (By.XPATH, '//*[@id="root"]/div/div[1]/div[5]/div')

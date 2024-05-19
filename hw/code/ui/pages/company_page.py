@@ -36,3 +36,13 @@ class CompanyPage(BasePage):
 
     def assert_no_region_message(self):
         self.find(self.locators.NO_REGION_ERROR_LOCATOR)
+
+    def open_interests(self):
+        self.click(self.locators.INTERESTS_SECTION_LOCATOR)
+        self.click(self.locators.INTERESTS_SUBSECTION_LOCATOR)
+
+    def open_interests_dropdown(self):
+        self.click(self.locators.INTERESTS_DROPDOWN_BTN_LOCATOR)
+
+    def assert_interests_dropdown(self):
+        self.fill(self.locators.INTERESTS_DROPDOWN_CONTENT_LOCATOR)
