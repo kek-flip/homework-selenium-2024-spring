@@ -34,6 +34,10 @@ class CompanyPage(BasePage):
         self.find(self.locators.TARGET_LABEL_LOCATOR)
         self.click(self.locators.APPLY_COMPANY_GROUP_BTN_LOCATOR)
 
+    def set_region(self):
+        self.find(self.locators.TARGET_LABEL_LOCATOR)
+        self.click(self.locators.REGION_RUSSIA_BTN_LOCATOR)
+
     def assert_no_region_message(self):
         self.find(self.locators.NO_REGION_ERROR_LOCATOR)
 
@@ -46,3 +50,6 @@ class CompanyPage(BasePage):
 
     def assert_interests_dropdown(self):
         self.fill(self.locators.INTERESTS_DROPDOWN_CONTENT_LOCATOR)
+
+    def apply_ad(self):
+        self.click(self.locators.APPLY_AD_BTN_LOCATOR)
