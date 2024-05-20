@@ -9,6 +9,16 @@ class CommerceCenterPage(BasePage):
     def open_catalog_creation(self):
         self.click(self.locators.CREATE_CATALOG_BTN_LOCATOR)
 
+    def open_catalog_settings(self):
+        # self.click(self.locators.CATALOG_MENU_BTNS_LOCATOR)
+        # self.click(self.locators.MENU_ITEM_BTNS_LOCATOR)
+        self.find(self.locators.CATALOG_NAME_INPUT_LOCATOR, 100)
+        
+    def rename_catalog(self, new_name):
+        self.find(self.locators.CATALOG_NAME_INPUT_LOCATOR).clear()
+        self.fill(self.locators.CATALOG_NAME_INPUT_LOCATOR, new_name)
+        self.click(self.locators.SUBMIT_CATALOG_SETTINGS_LOCATOR)
+
     def close_help_modal(self):
         try:
             self.click(self.locators.CLOSE_HELP_MODAL_BTN_LOCATOR)
@@ -25,18 +35,22 @@ class CommerceCenterPage(BasePage):
         self.click(self.locators.SUBMIT_CATALOG_BTN_LOCATOR)
 
     def wait_for_feed_load(self):
-        self.find(self.locators.HISTORY_ROW_LOCATOR, 600)
+        self.find(self.locators.ROW_LOCATOR, 600)
     
     def open_goods_tab(self):
         self.click(self.locators.GOODS_TAB_LOCATOR)
 
+    def open_group_tab(self):
+        self.click(self.locators.GROUP_TAB_LOCATOR)
+
     def get_catalog_goods(self):
         goods_titles = map(lambda good_title_element: good_title_element.text, self.find_all(self.locators.GOODS_TITLES_LOCATOR))
         goods_IDs = map(lambda good_id_element: good_id_element.text[3:], self.find_all(self.locators.GOODS_ID_LOCATOR))
+        goods_models = map(lambda good_model_element: good_model_element.text, self.find_all(self.locators.GOODS_MODEL_LOCATOR))
 
         goods = []
-        for id, title in zip(goods_IDs, goods_titles):
-            goods.append({'id': id, 'title': title})
+        for id, title, model in zip(goods_IDs, goods_titles, goods_models):
+            goods.append({'id': id, 'title': title, 'model': model})
         
         return goods
 
@@ -44,10 +58,59 @@ class CommerceCenterPage(BasePage):
         self.click(self.locators.left_menu.COMMERCE_CENTER_BTN_LOCATOR)
 
     def clear_catalogs(self):
-        menu_btns = self.wait(5).until(EC.presence_of_all_elements_located(self.locators.CATALOG_MENU_BTNS_LOCATOR))
-        for menu_btn in menu_btns:
-            menu_btn.click()
-            delete_btn = self.find_all(self.locators.MENU_ITEM_BTNS_LOCATOR)[1]
-            delete_btn.click()
-            self.click(self.locators.REMOVE_CATALOG_MODAL_BTN_LOCATOR)
-            self.find(self.locators.SUCCESS_CATALOG_REMOVE_NOTIFY_LOCATOR, 100)
+        # self.click(self.locators.CATALOG_MENU_BTNS_LOCATOR)
+        # delete_btn = self.find_all(self.locators.MENU_ITEM_BTNS_LOCATOR)[1]
+        # delete_btn.click()
+        # self.hover(self.locators.REMOVE_CATALOG_MODAL_BTN_LOCATOR)
+        # self.click(self.locators.REMOVE_CATALOG_MODAL_BTN_LOCATOR)
+        self.find(self.locators.SUCCESS_CATALOG_REMOVE_NOTIFY_LOCATOR, 100)
+
+    def search_catalog(self, catalog_name):
+        self.find(self.locators.CATALOG_SEARCH_INPUT_LOCATOR).clear()
+        self.fill(self.locators.CATALOG_SEARCH_INPUT_LOCATOR, catalog_name)
+
+    def wait_for_lens(self):
+        self.find(self.locators.LENS_LOCATOR)
+
+    def wait_for_right_menu(self):
+        self.fill(self.locators.RIGHT_MENU_LOCATOR)
+
+    def open_good_info(self):
+        self.click(self.locators.ROW_LOCATOR)
+
+    def sort_by_name(self):
+        self.click(self.locators.GOOD_NAME_HEADER_LOCATOR)
+
+    def sort_by_model(self):
+        self.find_all(self.locators.HEADER_ROW_ITEMS_LOCATOR)[5].click()
+
+    def open_goods_tab_settings(self):
+        self.click(self.locators.GOODS_TAB_SETTINGS_LOCATOR)
+
+    def get_first_column_name(self):
+        self.find_all(self.locators.GOOD_COLUMN_NAMES_BTN_LOCATOR)[1].text
+
+    def remove_first_column(self):
+        self.click(self.locators.GOOD_COLUMN_REMOVE_BTN_LOCATOR)
+
+    def submit_goods_settings(self):
+        self.click(self.locators.GOODS_TAB_SUBMIT_BTN_LOCATOR)
+
+    def create_good_group(self):
+        self.click(self.locators.GROUP_CREATION_BTN_LOCATOR)
+
+    def open_create_group_from_scratch(self):
+        self.find_all(self.locators.GROUP_DROPDOWN_ITEMS_LOCATOR)[1].click()
+
+    def check_first_good_in_group(self):
+        self.click(self.locators.GROUP_GOOD_CHECK_LOCATOR)
+
+    def get_first_good_name(self):
+        self.find_all(self.locators.GROUP_GOOD_TITLE_LOCATOR)[0].text
+
+    def open_first_group(self):
+        self.find_all(self.locators.GROUPS_LOCATOR)[1].click()
+
+    def clear_groups(self):
+        # TODO not to do
+        self.find(self.locators.SUCCESS_CATALOG_REMOVE_NOTIFY_LOCATOR, 100)

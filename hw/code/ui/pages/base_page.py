@@ -8,7 +8,6 @@ from selenium.common.exceptions import StaleElementReferenceException, TimeoutEx
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
-
 class PageNotOpenedExeption(Exception):
     pass
 
@@ -51,6 +50,9 @@ class BasePage(object):
         if timeout is None:
             timeout = 5
         return WebDriverWait(self.driver, timeout=timeout)
+    
+    def unfocus(self):
+        self.driver.execute_script('document.activeElement.blur()')
 
     def find(self, locator, timeout=None):
         return self.wait(timeout).until(EC.visibility_of_element_located(locator))
@@ -141,3 +143,7 @@ class BasePage(object):
         elem = self.wait().until(cond(locator))
         hover = ActionChains(self.driver).move_to_element(elem)
         hover.perform()
+        
+    def wait_for_count_of_elements(self, locator, count, timeout: float | None = None):
+        self.wait(timeout).until(lambda _: len(
+            self.find_all(locator)) == count)
