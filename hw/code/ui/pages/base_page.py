@@ -6,6 +6,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class PageNotOpenedExeption(Exception):
@@ -131,3 +132,12 @@ class BasePage(object):
             return error
         except TimeoutException:
             return None
+
+    def move_to_element(self, locator):
+        action = ActionChains(self.driver)
+        action.move_to_element(locator).perform()
+    
+    def hover(self, locator, cond=EC.presence_of_element_located):
+        elem = self.wait().until(cond(locator))
+        hover = ActionChains(self.driver).move_to_element(elem)
+        hover.perform()
