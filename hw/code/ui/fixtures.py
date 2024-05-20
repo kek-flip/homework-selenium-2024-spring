@@ -13,6 +13,9 @@ from ui.pages.main_page import MainPage
 from ui.pages.cabinet import CabinetPage
 from ui.pages.registration_page import RegistrationPage
 from ui.pages.news_page import NewsPage
+from ui.pages.navbar_page import NavbarPage
+from ui.pages.footer_page import FooterPage
+from ui.pages.education_page import EducationPage
 from ui.pages.forum_page import ForumPage
 from ui.pages.settings_page import SettingsPage
 from ui.pages.company_page import CompanyPage
@@ -88,6 +91,19 @@ def news_page(driver):
     return NewsPage(driver)
 
 @pytest.fixture()
+def navbar_page(driver):
+    driver.get(NavbarPage.url)
+    return NavbarPage(driver)
+
+@pytest.fixture()
+def footer_page(driver):
+    driver.get(FooterPage.url)
+    return FooterPage(driver)
+
+@pytest.fixture()
+def education_page(driver):
+    driver.get(EducationPage.url)
+    return EducationPage(driver)
 def forum_page(driver):
     driver.get(ForumPage.url)
     return ForumPage(driver)
