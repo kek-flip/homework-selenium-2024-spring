@@ -17,6 +17,7 @@ from ui.pages.navbar_page import NavbarPage
 from ui.pages.footer_page import FooterPage
 from ui.pages.education_page import EducationPage
 from ui.pages.forum_page import ForumPage
+from ui.pages.settings_page import SettingsPage
 from ui.pages.company_page import CompanyPage
 
 @pytest.fixture()
@@ -106,6 +107,11 @@ def education_page(driver):
 def forum_page(driver):
     driver.get(ForumPage.url)
     return ForumPage(driver)
+
+@pytest.fixture()
+def settings_page(driver):
+    driver.get(SettingsPage.url)
+    return SettingsPage(driver)
 
 @pytest.fixture()
 def company_page(driver):
