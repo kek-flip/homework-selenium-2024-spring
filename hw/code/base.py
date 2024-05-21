@@ -31,6 +31,15 @@ class BaseCase:
             raise PageNotOpenedExeption(
                 f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
 
+    def is_redirect_occurred(self, url):
+        timeout = 5
+
+        try:
+            WebDriverWait(self.driver, timeout).until_not(EC.url_matches(url))
+            return True
+        except:
+           raise PageNotOpenedExeption(
+                f'{url} did not open in {timeout} sec, гдеcurrent url {self.driver.current_url}')
 
 class UnauthorizedCase:
     authorize = False
