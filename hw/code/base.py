@@ -5,7 +5,7 @@ from ui.pages.main_page import MainPage
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
-from ui.pages.base_page import PageNotOpenedExeption
+from ui.pages.base_page import PageNotOpenedException
 
 
 class BaseCase:
@@ -28,7 +28,7 @@ class BaseCase:
             WebDriverWait(self.driver, timeout).until(EC.url_matches(url))
             return True
         except:
-            raise PageNotOpenedExeption(
+            raise PageNotOpenedException(
                 f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
 
     def is_redirect_occurred(self, url):
@@ -38,7 +38,7 @@ class BaseCase:
             WebDriverWait(self.driver, timeout).until_not(EC.url_matches(url))
             return True
         except:
-           raise PageNotOpenedExeption(
+           raise PageNotOpenedException(
                 f'{url} did not open in {timeout} sec, гдеcurrent url {self.driver.current_url}')
 
 class UnauthorizedCase:
@@ -56,7 +56,7 @@ class UnauthorizedCase:
             WebDriverWait(self.driver, timeout).until(EC.url_matches(url))
             return True
         except:
-            raise PageNotOpenedExeption(
+            raise PageNotOpenedException(
                 f'{url} did not open in {timeout} sec, гдеcurrent url {self.driver.current_url}')
 
     def is_redirect_occurred(self, url):
@@ -66,7 +66,7 @@ class UnauthorizedCase:
             WebDriverWait(self.driver, timeout).until_not(EC.url_matches(url))
             return True
         except:
-           raise PageNotOpenedExeption(
+           raise PageNotOpenedException(
                 f'{url} did not open in {timeout} sec, гдеcurrent url {self.driver.current_url}')
 
 
@@ -90,6 +90,6 @@ class NoCabinetCase:
             WebDriverWait(self.driver, timeout).until(EC.url_matches(url))
             return True
         except:
-            raise PageNotOpenedExeption(
+            raise PageNotOpenedException(
                 f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
 

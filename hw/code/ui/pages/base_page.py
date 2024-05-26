@@ -8,7 +8,7 @@ from selenium.common.exceptions import StaleElementReferenceException, TimeoutEx
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
-class PageNotOpenedExeption(Exception):
+class PageNotOpenedException(Exception):
     pass
 
 
@@ -44,7 +44,7 @@ class BasePage(object):
         while time.time() - started < timeout:
             if self.driver.current_url == self.url:
                 return True
-        raise PageNotOpenedExeption(f'{self.url} did not open in {timeout} sec, current url {self.driver.current_url}')
+        raise PageNotOpenedException(f'{self.url} did not open in {timeout} sec, current url {self.driver.current_url}')
 
     def wait(self, timeout=None):
         if timeout is None:
