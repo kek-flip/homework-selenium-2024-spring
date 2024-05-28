@@ -41,6 +41,8 @@ class TestAudience(BaseCase):
         users_list_path = self.config['users_list_path']
 
         audience_page.load_new_users_list(users_list_name, users_list_type, users_list_path)
+        assert users_list_name in audience_page.driver.page_source
+        assert users_list_type in audience_page.driver.page_source
         audience_page.submit_audience_source()
         audience_page.wait_for_success_notify()
         assert "Список пользователей" in audience_page.driver.page_source
@@ -60,6 +62,7 @@ class TestAudience(BaseCase):
         audience_page.select_audience_source(AudienceSource.EXISTING)
         
         audience_page.add_existing_audience("EXISTING_AUDIENCE")
+        assert "EXISTING_AUDIENCE" in audience_page.driver.page_source
         audience_page.submit_audience_source()
         assert "Существующая аудитория" in audience_page.driver.page_source
         audience_page.submit_audience_creation()
@@ -84,6 +87,10 @@ class TestAudience(BaseCase):
                 keywords = keywords_file.readlines()
                 breakwords = breakwords_file.readlines()
                 audience_page.add_key_words(keywords_name, keywords, breakwords)
+
+                for keyword, breakword in zip(keywords, breakwords):
+                    assert keyword in audience_page.driver.page_source
+                    assert breakword in audience_page.driver.page_source
         
         audience_page.submit_audience_source()
         assert keywords_name in audience_page.driver.page_source
