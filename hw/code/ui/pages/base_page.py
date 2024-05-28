@@ -8,7 +8,7 @@ from selenium.common.exceptions import StaleElementReferenceException, TimeoutEx
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
-class PageNotOpenedExeption(Exception):
+class PageNotOpenedException(Exception):
     pass
 
 
@@ -35,7 +35,7 @@ class element_in_viewport(object):
 
 
 class BasePage(object):
-    def __init__(self, driver):
+    def __init__(self, driver: RemoteWebDriver):
         self.driver = driver
         self.is_opened()
 
@@ -44,23 +44,26 @@ class BasePage(object):
         while time.time() - started < timeout:
             if self.driver.current_url == self.url:
                 return True
-        raise PageNotOpenedExeption(f'{self.url} did not open in {timeout} sec, current url {self.driver.current_url}')
+        raise PageNotOpenedException(f'{self.url} did not open in {timeout} sec, current url {self.driver.current_url}')
 
     def wait(self, timeout=None):
         if timeout is None:
-            timeout = 5
+            timeout = 15
         return WebDriverWait(self.driver, timeout=timeout)
     
     def unfocus(self):
         self.driver.execute_script('document.activeElement.blur()')
 
-    def find(self, locator, timeout=None):
+    def find(self, locator, timeout=None) -> WebElement:
         return self.wait(timeout).until(EC.visibility_of_element_located(locator))
     
-    def find_all(self, locator, timeout=None):
+    def find_invisible(self, locator, timeout=None) -> WebElement:
+        return self.wait(timeout).until(EC.presence_of_element_located(locator))
+    
+    def find_all(self, locator, timeout=None) -> list[WebElement]:
         return self.wait(timeout).until(EC.visibility_of_all_elements_located(locator))
 
-    def find_from(self, parent, locator, timeout: float | None = None) -> WebElement:
+    def find_from(self, parent: WebElement, locator, timeout: float | None = None) -> WebElement:
         def wait_cond(_):
             elem = parent.find_element(*locator)
             if elem.is_displayed():
@@ -71,7 +74,7 @@ class BasePage(object):
     
     def click(self, locator, timeout=None):
         self.find(locator, timeout=timeout)
-        elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
+        elem: WebElement = self.wait(timeout).until(EC.element_to_be_clickable(locator))
         elem.click()
 
     def fill(self, locator, keys):
@@ -81,7 +84,7 @@ class BasePage(object):
         elem = self.find(locator, timeout=timeout)
 
         self.wait(timeout).until(EC.visibility_of_element_located(locator))
-        elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
+        elem: WebElement = self.wait(timeout).until(EC.element_to_be_clickable(locator))
 
         elem.location_once_scrolled_into_view
 

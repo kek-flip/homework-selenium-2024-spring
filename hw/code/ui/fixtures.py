@@ -19,6 +19,7 @@ from ui.pages.education_page import EducationPage
 from ui.pages.forum_page import ForumPage
 from ui.pages.settings_page import SettingsPage
 from ui.pages.company_page import CompanyPage
+from ui.pages.audience_page import AudiencePage
 
 @pytest.fixture()
 def driver(config):
@@ -117,3 +118,8 @@ def settings_page(driver):
 def company_page(driver):
     driver.get(CompanyPage.url)
     return CompanyPage(driver)
+
+@pytest.fixture()
+def audience_page(driver):
+    driver.get(AudiencePage.url)
+    return AudiencePage(driver)
