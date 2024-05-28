@@ -9,9 +9,14 @@ class AudienceSource(Enum):
     USERS_LIST = 'users list'
     KEYWORDS = 'keywords'
 
+class UsersListType(Enum):
+    EMAIL = 'Email'
+
 class AudiencePage(BasePage):
     url = 'https://ads.vk.com/hq/audience'
     locators = AudiencePageLocators()
+
+    # -------Audience--------
 
     def submit_audience_source(self):
         self.find_all(self.locators.SUBMIT_BTN)[1].click()
@@ -50,7 +55,10 @@ class AudiencePage(BasePage):
         self.click(self.locators.EXISTING_USERS_LIST_SELECT_ITEM(users_list_name))
 
     def load_new_users_list(self, users_list_name: str, type: str, file_name: str):
-        self.click(self.locators.NEW_USERS_LIST_TAB)
+        try:
+            self.click(self.locators.NEW_USERS_LIST_TAB)
+        except:
+            pass
         self.fill_in(self.locators.NEW_USERS_LIST_NAME_INPUT, users_list_name)
         self.click(self.locators.NEW_USERS_LIST_TYPE_SELECT)
         self.click(self.locators.NEW_USERS_LIST_TYPE_SELECT_ITEM(type))
@@ -85,3 +93,23 @@ class AudiencePage(BasePage):
 
     def wait_for_success_notify(self):
         self.find(self.locators.SUCCESS_NOTIFY, 600)
+
+    # -------Users list--------
+
+    def open_users_list_creation(self):
+        self.click(self.locators.CREATE_USERS_LIST_BTN)
+
+    def clear_users_lists(self):
+        for menu_btn in self.find_all(self.locators.USERS_LIST_MENU_LOCATOR):
+            hover = ActionChains(self.driver).move_to_element(menu_btn)
+            hover.perform()
+            self.find_all(self.locators.USERS_LIST_MENU_ITEM_BTN)[1].click()
+
+    def submit_users_list_creation(self):
+        self.click(self.locators.SUBMIT_BTN)
+
+    def get_users_lists(self) -> list[str]:
+        return map(lambda users_list_name_element: users_list_name_element.text, self.find_all(self.locators.USERS_LIST_NAME))
+    
+    def create_audience_from_list(self):
+        self.click(self.locators.CREATE_AUDIENCE_FROM_LIST_CHECK)
