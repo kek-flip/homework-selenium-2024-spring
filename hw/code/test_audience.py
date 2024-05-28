@@ -66,6 +66,7 @@ class TestAudience(BaseCase):
         assert len(users_lists) == 1
         assert users_list_name in users_lists
 
+
     def test_create_users_list_from_audience(self, audience_page: AudiencePage, clear_audiences, clear_users_list):
         audience_page.open_audience_creation()
 
@@ -91,6 +92,7 @@ class TestAudience(BaseCase):
         assert len(users_lists) == 1
         assert users_list_name in users_lists
 
+
     def test_audience_from_uploading_users_list(self, audience_page: AudiencePage, clear_audiences, clear_users_list):
         audience_page.open_users_list_list()
         audience_page.open_users_list_creation()
@@ -109,6 +111,7 @@ class TestAudience(BaseCase):
         audiences = audience_page.get_audiences()
         assert len(audiences) == 1
         assert f'[auto] Список пользователей / {users_list_name}' in audiences
+
 
     def test_audience_from_new_users_list(self, audience_page: AudiencePage, clear_audiences, clear_users_list):
         audience_page.open_audience_creation()
@@ -135,6 +138,7 @@ class TestAudience(BaseCase):
         assert len(audiences) == 1
         assert audience_name in audiences
 
+
     def test_audience_from_existing_users_list(self, audience_page: AudiencePage, create_users_list, clear_audiences):
         audience_page.open_audience_creation()
 
@@ -154,6 +158,7 @@ class TestAudience(BaseCase):
         assert len(audiences) == 1
         assert audience_name in audiences
 
+
     def test_audience_from_existing_audience(self, audience_page: AudiencePage, create_audiences, clear_audiences):
         audience_page.open_audience_creation()
 
@@ -172,6 +177,7 @@ class TestAudience(BaseCase):
         audiences = audience_page.get_audiences()
         assert len(audiences) == 2
         assert audience_name in audiences
+
 
     def test_audience_from_keywords(self, audience_page: AudiencePage, clear_audiences):
         audience_page.open_audience_creation()
