@@ -48,7 +48,7 @@ class BasePage(object):
 
     def wait(self, timeout=None):
         if timeout is None:
-            timeout = 5
+            timeout = 15
         return WebDriverWait(self.driver, timeout=timeout)
     
     def unfocus(self):
@@ -56,6 +56,9 @@ class BasePage(object):
 
     def find(self, locator, timeout=None) -> WebElement:
         return self.wait(timeout).until(EC.visibility_of_element_located(locator))
+    
+    def find_invisible(self, locator, timeout=None) -> WebElement:
+        return self.wait(timeout).until(EC.presence_of_element_located(locator))
     
     def find_all(self, locator, timeout=None) -> list[WebElement]:
         return self.wait(timeout).until(EC.visibility_of_all_elements_located(locator))

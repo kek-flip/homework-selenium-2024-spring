@@ -1,5 +1,6 @@
 from ui.fixtures import *
 from dotenv import load_dotenv
+from os import environ
 
 
 def pytest_addoption(parser):
@@ -8,9 +9,6 @@ def pytest_addoption(parser):
     parser.addoption('--debug_log', action='store_true')
     parser.addoption('--selenoid', action='store_true')
     parser.addoption('--vnc', action='store_true')
-    parser.addoption('--feed-path', default='./test-data/feed.csv')
-    parser.addoption('--feed-url', default='https://bring-give.hb.ru-msk.vkcs.cloud/homework-selenium/feed.csv')
-
 
 @pytest.fixture(scope='session')
 def config(request):
@@ -28,8 +26,11 @@ def config(request):
         selenoid = None
         vnc = False
 
-    feed_url = request.config.getoption('--feed-url')
-    feed_path = request.config.getoption('--feed-path')
+    feed_url = environ.get("FEED_URL", "https://bring-give.hb.ru-msk.vkcs.cloud/homework-selenium/feed.csv")  
+    feed_path = environ.get("FEED_PATH", "./test-data/feed.csv")
+    users_list_path = environ.get("USERS_LIST_PATH", "./test-data/emails.txt")
+    keywords_path = environ.get("KEYWORDS_PATH", "./test-data/keywords.txt")
+    breakwords_path = environ.get("BREAKWORDS_PATH", "./test-data/breakwords.txt")
 
     return {
         'browser': browser,
@@ -39,4 +40,7 @@ def config(request):
         'vnc': vnc,
         'feed_url': feed_url,
         'feed_path': feed_path,
+        'users_list_path': users_list_path,
+        'keywords_path': keywords_path,
+        'breakwords_path': breakwords_path,
     }
