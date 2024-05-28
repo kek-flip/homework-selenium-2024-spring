@@ -5,6 +5,11 @@ class AudiencePageLocators:
     left_menu = LeftMenuLocators()
 
     USERS_LIST_TAB_BTN = (By.CSS_SELECTOR, '#tab_audience.users_list')
+    CREATE_USERS_LIST_BTN = (By.CSS_SELECTOR, '[data-testid=download-list]')
+    USERS_LIST_MENU_LOCATOR = (By.CSS_SELECTOR, '[data-testid=audience-item-menu]')
+    USERS_LIST_MENU_ITEM_BTN = (By.CSS_SELECTOR, '[data-testid=dropdown-item]')
+    USERS_LIST_NAME = (By.CSS_SELECTOR, '.EditableName_name__qWWXi > div')
+    CREATE_AUDIENCE_FROM_LIST_CHECK = (By.CSS_SELECTOR, 'input[type=checkbox][name=createAuditoryByUsersList]')
 
     AUDIENCE_NAME_LOCATOR = (By.CSS_SELECTOR, '.NameCell_wrapper__hxqrL > h5')
     AUDIENCE_MENU_LOCATOR = (By.CSS_SELECTOR, '[data-testid=audience-item-menu]')
