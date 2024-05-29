@@ -5,6 +5,10 @@ from enum import Enum
 
 class CompanyTarget(Enum):
     SITE = 'site'
+    CATALOG = 'ecomm'
+    PUBLIC = 'social'
+    ODKL = 'odkl'
+    
 class CompanyPage(BasePage):
     locators = CompanyPageLocators()
     url = 'https://ads.vk.com/hq/dashboard'
@@ -72,3 +76,36 @@ class CompanyPage(BasePage):
 
     def save_company(self):
         self.click(self.locators.SAVE_COMPANY_BTN)
+
+    def open_catalogs_dropdown(self):
+        self.click(self.locators.CATALOG_SELECT_LOCATOR)
+
+    def select_catalog(self, text):
+        self.click(self.locators.VK_UI_SELECT_ELEM(text))
+
+    def set_ad_carousel_desc(self, description: str):
+        self.fill_in(self.locators.AD_CAROUSEL_TEXTAREA, description)
+
+    def set_ad_card_desc(self, description: str):
+        self.fill_in(self.locators.AD_CARD_TEXTAREA, description)
+
+    def public_company(self):
+        self.click(self.locators.PUBLIC_LOCATOR)
+
+    def wait_for_company_load(self):
+        self.find(self.locators.CREATE_COMPANY_BTN, 200)
+    
+    def open_public_dropdown(self):
+        self.click(self.locators.COMPANY_SELECT_PUBLIC_BTN)
+    
+    def open_public_another_btn(self):
+        self.find(self.locators.ANOTHER_PUBLIC_BTN)
+    
+    def set_add_public_modal(self, description: str):
+        self.fill_in(self.locators.ADD_PUBLIC_INPUT, description)
+    
+    def click_add_public_btn(self):
+        self.click(self.locators.ADD_PUBLIC_BTN)
+    
+    def open_price_dropdown(self):
+        self.click(self.locators.PRICE_DROPDOWN)
