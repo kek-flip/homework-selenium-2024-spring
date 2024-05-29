@@ -73,8 +73,8 @@ def overview_page(driver):
 
 @pytest.fixture()
 def commerce_center_page(driver):
-    driver.get(CompanyPage.url)
-    return CompanyPage(driver)
+    driver.get(CommerceCenterPage.url)
+    return CommerceCenterPage(driver)
 
 @pytest.fixture()
 def cabinet_page(driver):

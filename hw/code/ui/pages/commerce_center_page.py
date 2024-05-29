@@ -10,9 +10,16 @@ class CommerceCenterPage(BasePage):
         self.click(self.locators.CREATE_CATALOG_BTN_LOCATOR)
 
     def open_catalog_settings(self):
-        # self.click(self.locators.CATALOG_MENU_BTNS_LOCATOR)
-        # self.click(self.locators.MENU_ITEM_BTNS_LOCATOR)
         self.find(self.locators.CATALOG_NAME_INPUT_LOCATOR, 100)
+
+    def is_error_visible(self):
+        return self.is_visible(self.locators.ERROR_LOCATOR)
+
+    def is_catalog_invisible(self):
+        return self.is_not_visible()
+
+    def is_must_have_field_visible(self):
+        return self.is_visible(self.locators.MUST_HAVE_FIELD)
         
     def rename_catalog(self, new_name):
         self.find(self.locators.CATALOG_NAME_INPUT_LOCATOR).clear()
@@ -31,11 +38,14 @@ class CommerceCenterPage(BasePage):
     def fill_feed_url(self, url):
         self.fill(self.locators.FEED_URL_INPUT_LOCATOR, url)
 
+    def fill_file(self, file):
+        self.fill(self.locators.FILE_INPUT_LOCATOR, file)
+
     def submit_catalog_creation(self):
         self.click(self.locators.SUBMIT_CATALOG_BTN_LOCATOR)
 
     def wait_for_feed_load(self):
-        self.find(self.locators.ROW_LOCATOR, 600)
+        self.find(self.locators.ROW_LOCATOR, 200)
     
     def open_goods_tab(self):
         self.click(self.locators.GOODS_TAB_LOCATOR)
@@ -58,12 +68,9 @@ class CommerceCenterPage(BasePage):
         self.click(self.locators.left_menu.COMMERCE_CENTER_BTN_LOCATOR)
 
     def clear_catalogs(self):
-        # self.click(self.locators.CATALOG_MENU_BTNS_LOCATOR)
-        # delete_btn = self.find_all(self.locators.MENU_ITEM_BTNS_LOCATOR)[1]
-        # delete_btn.click()
-        # self.hover(self.locators.REMOVE_CATALOG_MODAL_BTN_LOCATOR)
-        # self.click(self.locators.REMOVE_CATALOG_MODAL_BTN_LOCATOR)
-        self.find(self.locators.SUCCESS_CATALOG_REMOVE_NOTIFY_LOCATOR, 100)
+        self.click(self.locators.CATALOG_SETTINGS_LOCATOR)
+        self.click(self.locators.CATALOG_DELETE_LOCATOR)
+        self.click(self.locators.FINAL_DELETE_LOCATOR)
 
     def search_catalog(self, catalog_name):
         self.find(self.locators.CATALOG_SEARCH_INPUT_LOCATOR).clear()
@@ -102,14 +109,23 @@ class CommerceCenterPage(BasePage):
     def open_create_group_from_scratch(self):
         self.find_all(self.locators.GROUP_DROPDOWN_ITEMS_LOCATOR)[1].click()
 
+    def open_create_group_with_filters(self):
+        self.find_all(self.locators.GROUP_DROPDOWN_ITEMS_LOCATOR)[0].click()
+
     def check_first_good_in_group(self):
         self.click(self.locators.GROUP_GOOD_CHECK_LOCATOR)
 
     def get_first_good_name(self):
         self.find_all(self.locators.GROUP_GOOD_TITLE_LOCATOR)[0].text
 
+    def get_group_name(self):
+        self.find(self.locators.GROUP_NAME_LOCATOR).text
+
     def open_first_group(self):
         self.find_all(self.locators.GROUPS_LOCATOR)[1].click()
+
+    def is_group_visible(self):
+        self.is_visible(self.locators.GROUP_NAME_LOCATOR)
 
     def clear_groups(self):
         # TODO not to do
