@@ -8,7 +8,7 @@ def pytest_addoption(parser):
     parser.addoption('--debug_log', action='store_true')
     parser.addoption('--selenoid', action='store_true')
     parser.addoption('--vnc', action='store_true')
-    parser.addoption('--feed-path', default='./test-data/feed.csv')
+    parser.addoption('--feed-path', default='./hw/code/test-data/feed.csv')
     parser.addoption('--feed-url', default='https://bring-give.hb.ru-msk.vkcs.cloud/homework-selenium/feed.csv')
 
 

@@ -14,6 +14,16 @@ class CommerceCenterPageLocators:
     CREATE_CATALOG_BTN_LOCATOR = (By.CSS_SELECTOR, '[data-testid=create-catalog]')
 
     CATALOG_MENU_BTNS_LOCATOR = (By.XPATH, '//*[@id="catalogs"]/div/div/section/div/div/div[3]/div/div/div/div[2]/div[1]/div/div/div/div/div')
+    CATALOG_SETTINGS_LOCATOR = (By.CLASS_NAME, "Nav_buttonSettingsIcon__Q6eJ2")
+    CATALOG_DELETE_LOCATOR = (By.XPATH, f'//span[text()="Удалить каталог"]')
+    FINAL_DELETE_LOCATOR = (By.XPATH, f'//span[text()="Удалить"]')
+
+    FILE_INPUT_LOCATOR = (By.CLASS_NAME, "LocalFileSelector_container__W4cfb")
+
+    ERROR_LOCATOR = (By.XPATH, f'//span[text()="2 ошибки"]')
+
+    MUST_HAVE_FIELD = (By.XPATH, f'//div[text()="Обязательное поле"]')
+
     MENU_ITEM_BTNS_LOCATOR = (By.CSS_SELECTOR, '[data-testid=dropdown-item]')
     CATALOG_NAME_INPUT_LOCATOR = (By.CSS_SELECTOR, '[data-testid=catalogName-input]')
     SUBMIT_CATALOG_SETTINGS_LOCATOR = (By.CSS_SELECTOR, '[data-testid=submit]')
@@ -56,6 +66,7 @@ class CommerceCenterPageLocators:
 
     GROUP_GOOD_CHECK_LOCATOR = (By.XPATH, '//*[@id="0"]/div/div[2]/div/div[1]/div/div/div/div/div[2]/div[1]/div/div[1]/div[1]/div/div')
     GROUP_GOOD_TITLE_LOCATOR = (By.CSS_SELECTOR, '.ModalRoot_componentWrapper__uzHTL .NameCell_itemNameBlock__m3cNF > h5')
+    GROUP_NAME_LOCATOR = (By.NAME, "groupName")
 
     def get_locator_by_source(self, source):
         if source == FeedSources.URL:
